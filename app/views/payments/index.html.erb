@@ -1,0 +1,39 @@
+<h1>Listing payments</h1>
+
+<table>
+  <tr>
+    <th>Payment</th>
+    <th>Payment Ref</th>
+    <th>Subscriber</th>
+    <th>Subscriber Name</th>
+    <th>Smartcard Number</th>
+    <th>Amount</th>
+    <th>For Period</th>
+    <th>Collected By</th>
+    <th>Collected On</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payments.each do |payment| %>
+  <tr>
+    <td><%= payment.id %></td>
+    <td><%= payment.payment_ref %></td>
+    <td><%= payment.subscriber_id %></td>
+    <td><%= payment.subscriber.name %></td>
+    <td><%= payment.subscriber.smartcard_number %></td>
+    <td><%= payment.amount %></td>
+    <td><%= payment.for_cycle.strftime("%m/%Y") %></td>
+    <td><%= payment.agent.name %></td>
+    <td><%= payment.collected_on %></td>
+    <td><%= link_to 'Show', payment %></td>
+    <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
+    <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment', new_payment_path %>

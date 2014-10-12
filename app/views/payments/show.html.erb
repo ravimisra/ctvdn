@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Payment id:</b>
+  <%= @payment.id %>
+</p>
+<p>
+  <b>Payment:</b>
+  <%= @payment.payment_ref %>
+</p>
+<p>
+  <b>Subscriber:</b>
+  <%= @payment.subscriber_id %>
+</p>
+<p>
+  <b>Subscriber Name:</b>
+  <%= @payment.subscriber.name %>
+</p>
+<p>
+  <b>Smartcard Number:</b>
+  <%= @payment.subscriber.smartcard_number %>
+</p>
+<p>
+  <b>Amount:</b>
+  <%= @payment.amount %>
+</p>
+<p>
+  <b>For Period:</b>
+  <%= @payment.for_cycle.strftime("%m/%Y") %>
+</p>
+<p>
+  <b>Collected By:</b>
+  <%= @payment.agent.name %>
+</p>
+<p>
+  <b>Collected On:</b>
+  <%= @payment.collected_on %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

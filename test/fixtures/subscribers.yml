@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  smartcard_number: 1
+  name: MyString
+  address: MyString
+  cycle_starts_on: 1
+  packages: MyText
+  channels: MyText
+
+two:
+  smartcard_number: 1
+  name: MyString
+  address: MyString
+  cycle_starts_on: 1
+  packages: MyText
+  channels: MyText

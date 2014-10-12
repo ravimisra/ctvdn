@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Status:</b>
+  <%= @subscriber.status ? 'Active' : 'Inactive' %>
+</p>
+
+<p>
+  <b>Smartcard number:</b>
+  <%= @subscriber.smartcard_number %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @subscriber.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @subscriber.address %>
+</p>
+
+<p>
+  <b>Cycle starts on:</b>
+  <%= @subscriber.cycle_starts_on %>
+</p>
+
+<p>
+  <b>Packages:</b>
+  <%= @subscriber.get_packages.collect(&:name).join(',') %>
+</p>
+
+<p>
+  <b>Channels:</b>
+  <%= @subscriber.get_channels.collect(&:name).join(',') %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscriber_path(@subscriber) %> |
+<%= link_to 'Back', subscribers_path %>

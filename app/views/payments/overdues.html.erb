@@ -1,0 +1,59 @@
+<h1>Overdue payments</h1>
+
+<table>
+  <tr>
+    <th>Subscriber</th>
+    <th>Subscriber Name</th>
+    <th>Smartcard Number</th>
+    <td>
+        <table>
+            <tr>
+                <th colspan="6">Last Payment Details</th>
+            </tr>
+            <tr>
+                <th>Payment Id</th>
+                <th>Payment Ref</th>
+                <th>Amount</th>
+                <th>For Period</th>
+                <th>Collected By</th>
+                <th>Collected On</th>
+            </tr>
+        </table>
+    </td>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @overdues.each do |overdues| %>
+  <%
+    subscriber = overdues[:s]
+    payment    = overdues[:p]
+  %>  
+  <tr>
+    <td><%= subscriber.id %></td>
+    <td><%= link_to subscriber.name, subscriber%></td>
+    <td><%= subscriber.smartcard_number %></td>
+    <td>
+    <table>
+    <tr>
+    <%if payment%>        
+        <td><%= payment.id %></td>
+        <td><%= payment.payment_ref %></td>
+        <td><%= payment.amount %></td>
+        <td><%= payment.for_cycle.strftime("%m/%Y") %></td>
+        <td><%= payment.agent.name %></td>
+        <td><%= payment.collected_on %></td>
+    <%end%>
+    </tr>
+    </table>
+    </td>
+    <td><%= link_to 'Receive Payment', new_subscriber_payment_path(subscriber) %></td>
+    <td><%= link_to 'Show All Previous Payments', subscriber_payments_path(subscriber) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment', new_payment_path %>

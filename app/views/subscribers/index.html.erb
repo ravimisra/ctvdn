@@ -1,0 +1,35 @@
+<h1>Listing subscribers</h1>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Smartcard number</th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Cycle starts on</th>
+    <th>Packages</th>
+    <th>Channels</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subscribers.each do |subscriber| %>
+  <tr>
+    <td><%= subscriber.status ? 'Active' : 'Inactive' %></td>
+    <td><%= subscriber.smartcard_number %></td>
+    <td><%= subscriber.name %></td>
+    <td><%= subscriber.address %></td>
+    <td><%= subscriber.cycle_starts_on %></td>
+    <td><%= subscriber.get_packages.collect(&:name).join(',') %></td>
+    <td><%= subscriber.get_channels.collect(&:name).join(',') %></td>
+    <td><%= link_to 'Show', subscriber %></td>
+    <td><%= link_to 'Edit', edit_subscriber_path(subscriber) %></td>
+    <td><%= link_to 'Destroy', subscriber, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Subscriber', new_subscriber_path %>

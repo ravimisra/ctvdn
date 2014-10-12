@@ -1,0 +1,51 @@
+<%= form_for(@subscriber) do |f| %>
+  <% if @subscriber.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited this subscriber from being saved:</h2>
+
+      <ul>
+      <% @subscriber.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.check_box :status %>
+  </div>
+  <div class="field">
+    <%= f.label :smartcard_number %>
+    <%= f.text_field :smartcard_number %>
+  </div>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :subscription_amount %>
+    <%= f.text_field :subscription_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :packages %>
+    <%Package.all.each do |package|%>
+        <%= check_box_tag "subscriber[packages][]", package.id, @subscriber.has_package?(package)%>
+        <%= label_tag "subscriber[packages][]", package.name%>
+    <%end%>
+  </div>
+  <div class="field">
+    <%= f.label :channels %>
+    <%Channel.all.each do |channel|%>
+        <%= check_box_tag "subscriber[channels][]", channel.id, @subscriber.has_channel?(channel)%>
+        <%= label_tag "subscriber[channels][]", channel.name%>
+    <%end%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
