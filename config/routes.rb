@@ -14,9 +14,12 @@ Ctvdn::Application.routes.draw do
   end
 
   resources :users
-
+  
   resources :subscribers do
     resources :payments
+    collection do
+      get 'inactive'
+    end
   end
   
   resources :payments do

@@ -1,7 +1,7 @@
 <h1>Overdue payments</h1>
 
 <table>
-  <tr>
+  <tr class="header">
     <th>Subscriber</th>
     <th>Subscriber Name</th>
     <th>Smartcard Number</th>
@@ -25,12 +25,12 @@
     <th></th>
   </tr>
 
-<% @overdues.each do |overdues| %>
+<% @overdues.each_with_index do |overdues, i| %>
   <%
     subscriber = overdues[:s]
     payment    = overdues[:p]
   %>  
-  <tr>
+  <tr class="<%= i%2 == 0 ? '':'alternate'%>">
     <td><%= subscriber.id %></td>
     <td><%= link_to subscriber.name, subscriber%></td>
     <td><%= subscriber.smartcard_number %></td>

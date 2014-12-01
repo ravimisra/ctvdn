@@ -15,12 +15,14 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :channels %>
-    <%Channel.all.each do |channel|%>
-        <%= check_box_tag "package[channels][]", channel.id, @package.has_channel?(channel)%>
-        <%= label_tag "package[channels][]", channel.name%>
-    <%end%>
+  <div class="field vertical-group">
+    <fieldset>
+	    <legend>Channels</legend>
+		<%Channel.all.each do |channel|%>
+    		<%= check_box_tag "package[channels][]", channel.id, @package.has_channel?(channel)%>
+    		<%= label_tag "package[channels][]", channel.name%><br>
+		<%end%>
+    </fieldset>
   </div>
   <div class="field">
     <%= f.label :price %><br />

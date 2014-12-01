@@ -25,25 +25,31 @@
   </div>
   <div class="field">
     <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.text_area :address, {:rows => 10} %>
   </div>
   <div class="field">
     <%= f.label :subscription_amount %>
     <%= f.text_field :subscription_amount %>
   </div>
-  <div class="field">
-    <%= f.label :packages %>
-    <%Package.all.each do |package|%>
-        <%= check_box_tag "subscriber[packages][]", package.id, @subscriber.has_package?(package)%>
-        <%= label_tag "subscriber[packages][]", package.name%>
-    <%end%>
+  <div class="field vertical-group">
+    <fieldset>
+	    <legend>Packages</legend>
+	    <%Package.all.each do |package|%>
+	        <%= check_box_tag "subscriber[packages][]", package.id, @subscriber.has_package?(package)%>
+	        <%= label_tag "subscriber[packages][]", package.name%><br>
+	    <%end%>
+    </fieldset>
   </div>
-  <div class="field">
-    <%= f.label :channels %>
-    <%Channel.all.each do |channel|%>
-        <%= check_box_tag "subscriber[channels][]", channel.id, @subscriber.has_channel?(channel)%>
-        <%= label_tag "subscriber[channels][]", channel.name%>
-    <%end%>
+  <div class="field vertical-group">
+    <fieldset>
+    	<legend>Channels</legend>
+    	<div>
+		    <%Channel.all.each do |channel|%>
+		        <%= check_box_tag "subscriber[channels][]", channel.id, @subscriber.has_channel?(channel)%>
+		        <%= label_tag "subscriber[channels][]", channel.name%><br>
+		    <%end%>
+	    </div>
+    </fieldset>
   </div>
   <div class="actions">
     <%= f.submit %>

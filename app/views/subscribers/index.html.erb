@@ -1,7 +1,7 @@
 <h1>Listing subscribers</h1>
 
 <table>
-  <tr>
+  <tr class="header">
     <th>Status</th>
     <th>Smartcard number</th>
     <th>Name</th>
@@ -14,8 +14,8 @@
     <th></th>
   </tr>
 
-<% @subscribers.each do |subscriber| %>
-  <tr>
+<% @subscribers.each_with_index do |subscriber, i| %>
+  <tr >
     <td><%= subscriber.status ? 'Active' : 'Inactive' %></td>
     <td><%= subscriber.smartcard_number %></td>
     <td><%= subscriber.name %></td>
@@ -24,12 +24,12 @@
     <td><%= subscriber.get_packages.collect(&:name).join(',') %></td>
     <td><%= subscriber.get_channels.collect(&:name).join(',') %></td>
     <td><%= link_to 'Show', subscriber %></td>
-    <td><%= link_to 'Edit', edit_subscriber_path(subscriber) %></td>
-    <td><%= link_to 'Destroy', subscriber, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to( 'Edit', edit_subscriber_path(subscriber)) if current_user && current_user.has_role?(User::USERS + User::CAN_DESTROY)%></td>
+    <td><%= link_to( 'Destroy', subscriber, method: :delete, data: { confirm: 'Are you sure?' }) if current_user && current_user.has_role?(User::USERS + User::CAN_DESTROY)%></td>
   </tr>
 <% end %>
 </table>
-
+<%= will_paginate @subscribers %>
 <br />
 
 <%= link_to 'New Subscriber', new_subscriber_path %>

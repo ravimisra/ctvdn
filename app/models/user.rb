@@ -6,26 +6,7 @@ class User < ActiveRecord::Base
   
   has_many :payments, class_name: Payment, foreign_key: :agent_id, inverse_of: :agent
     
-  CAN_LIST_USERS          = 1001
-  CAN_ADD_USERS           = 1002
-  CAN_DELETE_USERS        = 1003
-  CAN_MODIFY_USERS        = 1004
 
-  CAN_LIST_SUBSCRIBERS    = 2001
-  CAN_ADD_SUBSCRIBERS     = 2002
-  CAN_DELETE_SUBSCRIBERS  = 2003
-  CAN_MODIFY_SUBSCRIBERS  = 2004
-
-  CAN_LIST_PAYMENTS       = 3001
-  CAN_ADD_PAYMENTS        = 3002
-  CAN_DELETE_PAYMENTS     = 3003
-  CAN_MODIFY_PAYMENTS     = 3004
-
-  CAN_LIST_AGENTS         = 4001
-  CAN_ADD_AGENTS          = 4002
-  CAN_DELETE_AGENTS       = 4003
-  CAN_MODIFY_AGENTS       = 4004
-  
   CAN_LIST                = 1
   CAN_ADD                 = 2
   CAN_DESTROY             = 3
@@ -58,6 +39,6 @@ class User < ActiveRecord::Base
   end
   
   def has_role? role
-    return self.roles.include?(role.to_s) #||  self.roles.reject{|a| a.to_i < role.to_i}.count > 0
+    return self.roles.include?(role.to_s) || self.roles.include?(IS_AN_ADMIN.to_s) #||  self.roles.reject{|a| a.to_i < role.to_i}.count > 0
   end
 end

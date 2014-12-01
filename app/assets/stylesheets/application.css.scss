@@ -12,51 +12,112 @@
  *= require_tree .
  */
 
-
-#banner {
-	background: #9BC;
-	padding: 10px;
-	border-bottom: 2px solid;
-	font: small-caps 40px/40px "Times New Roman", serif;
-	color: #145;
-	text-align: center;
-	img {
-		float: left;
-		max-height:40px;
-	}
-}
-#notice {
-	color: #000 !important;
-	border: 2px solid red;
-	padding: 1em;
-	margin-bottom: 2em;
-	background-color: #f0f0f0;
-	font: bold smaller sans-serif;
-}
-#columns {
-	background: #114;
-	#main {
-		margin-left: 17em;
-		padding: 1em;
-		background: white;
-	}
-	#side {
-		float: left;
-		padding: 1em 2em;
-		width: 13em;
-		background: #114;
-		ul {
-			padding: 0;
-			li {
-				list-style: none;
-				a {
-					color: #bfb;
-					font-size: small;
-				}
-			}
-		}
-	}
-}
-table td{
-	border:1px solid;
+html{
+  height:100%;
+  body{
+    height:100%;
+    #banner {
+      background: #9BC;
+      padding: 10px;
+      border-bottom: 2px solid;
+      font: small-caps 40px/40px "Times New Roman", serif;
+      color: #145;
+      text-align: center;
+      img {
+        float: left;
+        max-height:40px;
+      }
+    }
+    #notice {
+      color: #000 !important;
+      border: 2px solid red;
+      padding: 1em;
+      margin-bottom: 2em;
+      background-color: #f0f0f0;
+      font: bold smaller sans-serif;
+    }
+    #columns {
+      background: #114;
+      height:100%;
+      #main {
+        margin-left: 17em;
+        padding: 1em;
+        background: white;
+        height:100%;
+        table{
+          width:100%;
+          border-spacing:0px;
+          border-collapse:collapse;
+          tr.header{
+            background-color:#777;
+          }
+          tr.alternate{
+            background-color:#aaa;
+          }
+          th{
+            border:#000 1px solid;
+          }
+        }
+      }
+      #side {
+        float: left;
+        padding: 1em 2em;
+        width: 13em;
+        background: #114;
+        height:100%;
+        ul {
+          padding: 0;
+          li {
+            list-style: none;
+            a {
+              color: #bfb;
+              font-size: small;
+            }
+            ul{
+              margin-left:10px;
+              li{
+                
+              }
+            }
+          }
+        }
+        .welcome{
+          color: #fff;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    table{
+      th{
+        color:#fff;
+      }
+      td{
+        border:1px solid;
+      }
+    }
+    form {
+      .vertical-group{
+        width:300px;
+        fieldset{
+          div{
+            max-height:300px;
+            overflow-y:auto;
+          }
+        }
+      }
+      label{
+        display:inline-block;
+        float:left;
+      }
+      label.collected-on{
+        width:100px;
+      }
+      input{
+      }
+    }
+    .clear{
+      clear:both;
+      float:none;
+    }
+  }
 }

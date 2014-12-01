@@ -1,7 +1,7 @@
 <h1>Listing payments</h1>
 
 <table>
-  <tr>
+  <tr class="header">
     <th>Payment</th>
     <th>Payment Ref</th>
     <th>Subscriber</th>
@@ -16,8 +16,8 @@
     <th></th>
   </tr>
 
-<% @payments.each do |payment| %>
-  <tr>
+<% @payments.each_with_index do |payment,i| %>
+  <tr class="<%= i%2 == 0 ? '':'alternate'%>">
     <td><%= payment.id %></td>
     <td><%= payment.payment_ref %></td>
     <td><%= payment.subscriber_id %></td>
@@ -33,7 +33,7 @@
   </tr>
 <% end %>
 </table>
-
+<%= will_paginate @payments %>
 <br />
 
 <%= link_to 'New Payment', new_payment_path %>

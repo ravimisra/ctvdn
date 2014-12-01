@@ -13,3 +13,34 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function() {
+	adjustColumnsHeight();
+	adjustLabelWidth();
+});
+
+
+$(window).on('resize', function(){
+	adjustColumnsHeight();
+});
+
+
+function adjustColumnsHeight() {
+	var banner_height = $('#banner').outerHeight();
+	var win_height = $(window).innerHeight();
+	$('#columns').outerHeight(win_height - banner_height - 30);
+}
+
+
+function adjustLabelWidth() {
+	var labels = $('label');
+	var max = 0;
+	var width = 0;
+	$(labels).each(function(index) {
+		width = $(this).outerWidth();
+		if ( max < width ){
+			max = width;
+		}
+	});
+	$(labels).outerWidth(max);
+}

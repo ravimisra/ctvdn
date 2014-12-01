@@ -2,7 +2,8 @@ class SubscribersController < ApplicationController
   # GET /subscribers
   # GET /subscribers.json
   def index
-    @subscribers = Subscriber.all
+    status = params[:status] != 'inactive'
+    @subscribers = Subscriber.where(:status => status).paginate(:page  => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,4 +81,15 @@ class SubscribersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # GET /subscribers
+  # GET /subscribers.json
+  def inactive
+    @subscribers = Subscriber.where(:status => 0).paginate(:page  => params[:page], :per_page => 20)
+    respond_to do |format|
+      format.html { render :action => :index}
+      format.json { render json: @subscribers }
+    end
+  end
+
 end

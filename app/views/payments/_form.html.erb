@@ -12,27 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :payment_ref %><br />
+    <%= f.label :payment_ref %>
     <%= f.text_field :payment_ref, value: @payment.payment_ref||Payment.generate_payment_ref%>
   </div>
   <div class="field">
-    <%= f.label :subscriber_id %><br />
-    <%= f.select(:id, options_for_select(Subscriber.all.collect{|s| ["#{s.id} : #{s.name}", s.id]}, [@payment.subscriber_id]), {prompt: 'Select subscriber'})%>
+    <%= f.label :subscriber_id %>
+    <%= f.select(:subscriber_id, options_for_select(Subscriber.all.collect{|s| ["#{s.id} : #{s.name}", s.id]}, [@payment.subscriber_id]), {prompt: 'Select subscriber'})%>
   </div>
   <div class="field">
-    <%= f.label :amount %><br />
+    <%= f.label :amount %>
     <%= f.text_field :amount %>
   </div>
   <div class="field">
-    <%= f.label :for_cycle %><br />
+    <%= f.label :for_cycle %>
     <%= f.date_select :for_cycle, discard_day: true %>
   </div>
   <div class="field">
-    <%= f.label :agent_id %><br />
+    <%= f.label :agent_id %>
     <%= f.select(:agent_id, User.all_agents.collect{|a| [a.name, a.id]}, {prompt: 'Select agent'})%>
   </div>
   <div class="field">
-    <%= f.label :collected_on %><br />
+    <%= f.label :collected_on, {:class => 'collected-on'} %>
     <%= f.date_select :collected_on %>
   </div>
   <div class="actions">

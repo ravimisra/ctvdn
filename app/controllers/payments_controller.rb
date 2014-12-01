@@ -4,9 +4,9 @@ class PaymentsController < ApplicationController
   def index
     @subscriber = Subscriber.find_by_id(params[:subscriber_id])
     if @subscriber
-      @payments = Payment.where(subscriber_id: @subscriber.id)
+      @payments = Payment.paginate(:page  => params[:page], :per_page => 20).where(subscriber_id: @subscriber.id)
     else
-      @payments = Payment.all
+      @payments = Payment.paginate(:page  => params[:page], :per_page => 20)
     end
     
     respond_to do |format|

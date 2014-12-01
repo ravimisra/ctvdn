@@ -6,6 +6,8 @@ class Subscriber < ActiveRecord::Base
   
   before_save :correct_data_types
   
+  ACTIVE = 1
+  INACTIVE = 0
   
   def get_last_payment
     payment = Payment.where(:subscriber_id => self.id).order('id DESC').first
