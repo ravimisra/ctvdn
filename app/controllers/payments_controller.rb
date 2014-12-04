@@ -4,9 +4,11 @@ class PaymentsController < ApplicationController
   def index
     @subscriber = Subscriber.find_by_id(params[:subscriber_id])
     if @subscriber
-      @payments = Payment.paginate(:page  => params[:page], :per_page => 20).where(subscriber_id: @subscriber.id)
+      @payments = Payment.paginate(:page  => params[:page], :per_page => 20).where(subscriber_id: @subscriber.id).order('id DESC')
+      @list_name = "all payments for subscriber: #{@subscriber.id} (#{@subscriber.name})"
     else
-      @payments = Payment.paginate(:page  => params[:page], :per_page => 20)
+      @payments = Payment.paginate(:page  => params[:page], :per_page => 20).order('id DESC')
+      @list_name = "all payments"
     end
     
     respond_to do |format|
@@ -33,6 +35,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new
    
     if subscriber
+      @header_sfx = " for subscriber: #{subscriber.id} (#{subscriber.name})"
       @payment.subscriber_id = subscriber.id 
       @payment.amount = subscriber.subscription_amount
     end

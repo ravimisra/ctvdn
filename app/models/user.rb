@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   SUBSCRIBERS             = 2000
   PAYMENTS                = 3000
   PACKAGES                = 4000
-  CHANNELS                 = 5000
+  CHANNELS                = 5000
   
   IS_AN_AGENT             = 6000
   IS_AN_ADMIN             = 9000

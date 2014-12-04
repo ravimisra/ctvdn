@@ -2,27 +2,19 @@
 
 <table>
   <tr class="header">
-    <th>Subscriber</th>
-    <th>Subscriber Name</th>
-    <th>Smartcard Number</th>
-    <td>
-        <table>
-            <tr>
-                <th colspan="6">Last Payment Details</th>
-            </tr>
-            <tr>
-                <th>Payment Id</th>
-                <th>Payment Ref</th>
-                <th>Amount</th>
-                <th>For Period</th>
-                <th>Collected By</th>
-                <th>Collected On</th>
-            </tr>
-        </table>
-    </td>
-    <th></th>
-    <th></th>
-    <th></th>
+	<th rowspan="2">Subscriber Id</th>
+    <th rowspan="2">Subscriber Name</th>
+    <th rowspan="2">Smartcard Number</th>
+    <th colspan="6">Last Payment Details</th>
+    <th colspan="5" rowspan="2">Tasks</th>
+  </tr>
+  <tr class="header">
+    <th>Payment Id</th>
+    <th>Payment Ref</th>
+    <th>Amount</th>
+    <th>For Period</th>
+    <th>Collected By</th>
+    <th>Collected On</th>
   </tr>
 
 <% @overdues.each_with_index do |overdues, i| %>
@@ -32,24 +24,26 @@
   %>  
   <tr class="<%= i%2 == 0 ? '':'alternate'%>">
     <td><%= subscriber.id %></td>
-    <td><%= link_to subscriber.name, subscriber%></td>
-    <td><%= subscriber.smartcard_number %></td>
     <td>
-    <table>
-    <tr>
-    <%if payment%>        
+    	<%= subscriber.name%>
+    	<%= link_to( image_tag(asset_path('ui-icons/eye-128.png'), alt: "View subscriber's details"), subscriber, class: 'icon', title: "View this subscriber's details") %>
+    </td>
+    <td><%= subscriber.smartcard_number %></td>
+    <% if payment %>        
         <td><%= payment.id %></td>
         <td><%= payment.payment_ref %></td>
         <td><%= payment.amount %></td>
         <td><%= payment.for_cycle.strftime("%m/%Y") %></td>
         <td><%= payment.agent.name %></td>
         <td><%= payment.collected_on %></td>
-    <%end%>
-    </tr>
-    </table>
-    </td>
-    <td><%= link_to 'Receive Payment', new_subscriber_payment_path(subscriber) %></td>
-    <td><%= link_to 'Show All Previous Payments', subscriber_payments_path(subscriber) %></td>
+	    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/eye-128.png'), alt: "View this payment's details"), payment, class: 'icon', title: "view this payment's details") %></td>
+	    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/pen-128.png'), alt: 'Edit this payment'), edit_payment_path(payment), {class: 'icon', title: 'edit this payment'}) if current_user && current_user.has_role?(User::PAYMENTS + User::CAN_DESTROY)%></td>
+	    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/trash-128.png'), alt: 'Delete this payment'), payment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon', title:  'delete this payment') if current_user && current_user.has_role?(User::PAYMENTS + User::CAN_DESTROY)%></td>
+    <% else %>
+    	<td colspan="9">
+    <% end %>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/list-128.png'), alt: 'View all payments'), subscriber_payments_path(subscriber), class: 'icon', title: 'view all payments for this subscriber') %></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/plus-128.png'), alt: 'Add new payment for this subscriber'), new_subscriber_payment_path(subscriber), class: 'icon', title: 'add new payment for this subscriber') %></td>
   </tr>
 <% end %>
 </table>

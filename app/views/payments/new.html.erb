@@ -1,5 +1,5 @@
-<h1>New payment</h1>
+<h1>New payment<%=@header_sfx%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', payments_path %>
+<%= link_to 'Back', request.referer || payments_path, class: 'action back' %>

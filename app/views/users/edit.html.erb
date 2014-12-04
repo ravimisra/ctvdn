@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Show', @user, class: 'action show' %> |
+<%= link_to 'List all users', users_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || users_path, class: 'action back' %>
+

@@ -2,9 +2,15 @@ class SubscribersController < ApplicationController
   # GET /subscribers
   # GET /subscribers.json
   def index
-    status = params[:status] != 'inactive'
-    @subscribers = Subscriber.where(:status => status).paginate(:page  => params[:page], :per_page => 20)
-
+    @list_name = 'all' 
+    
+    status = params[:status].to_i if params[:status] == '0' || params[:status] == '1'
+    if status.blank?
+      @subscribers = Subscriber.paginate(:page  => params[:page], :per_page => 20)
+    else
+      @list_name += status == Subscriber::ACTIVE ? ' active' : ' inactive'
+      @subscribers = Subscriber.where(:status => status).paginate(:page  => params[:page], :per_page => 20)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @subscribers }
@@ -85,7 +91,18 @@ class SubscribersController < ApplicationController
   # GET /subscribers
   # GET /subscribers.json
   def inactive
+    @list_name = 'all inactive' 
     @subscribers = Subscriber.where(:status => 0).paginate(:page  => params[:page], :per_page => 20)
+    respond_to do |format|
+      format.html { render :action => :index}
+      format.json { render json: @subscribers }
+    end
+  end
+  # GET /subscribers
+  # GET /subscribers.json
+  def active
+    @list_name = 'all active' 
+    @subscribers = Subscriber.where(:status => 1).paginate(:page  => params[:page], :per_page => 20)
     respond_to do |format|
       format.html { render :action => :index}
       format.json { render json: @subscribers }

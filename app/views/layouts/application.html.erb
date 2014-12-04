@@ -19,8 +19,9 @@
 						<%= link_to 'Subscribers', subscribers_path %>
 						<% if controller.controller_name == 'subscribers'%>
 							<ul>
+								<li><%= link_to 'Active Subscribers', subscribers_path(status: 1) %></li>
+								<li><%= link_to 'Inactive Subscribers', subscribers_path(status: 0) %></li>
 								<li><%= link_to 'Add New Subscriber', new_subscriber_path %></li>
-								<li><%= link_to 'Inactive Subscribers', inactive_subscribers_path %></li>
 							</ul>							
 						<%end%>
 					</li>
@@ -35,7 +36,7 @@
 					</li>
 					<li>
 						<%= link_to 'Users', users_path %>
-						<% if controller.controller_name == 'users'%>
+						<% if controller.controller_name == 'users' && false%>
 							<ul>
 								<li><%= link_to 'Agents', users_path %></li>	
 							</ul>

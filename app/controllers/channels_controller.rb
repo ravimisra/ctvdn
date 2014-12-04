@@ -2,7 +2,7 @@ class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
   def index
-    @channels = Channel.all
+    @channels = Channel.paginate(:page  => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb

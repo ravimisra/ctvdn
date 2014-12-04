@@ -1,6 +1,7 @@
-<h1>Editing subscriber</h1>
+<h1>Editing subscriber: <%="#{@subscriber.id} (#{@subscriber.name})"%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @subscriber %> |
-<%= link_to 'Back', subscribers_path %>
+<%= link_to 'Show', @subscriber, class: 'action show' %> |
+<%= link_to 'List all subscribers', subscribers_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || subscribers_path, class: 'action back' %>

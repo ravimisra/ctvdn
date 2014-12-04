@@ -1,83 +1,91 @@
 <div class="depot_form">
-
-    <%= form_for(@user) do |f| %>
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-    
-          <ul>
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-
-
-        <fieldset>
-            <legend>Enter User Details</legend>
-            <div>
-                <%= f.label :name %>:
-                <%= f.text_field :name, size: 40 %>
-            </div>
-            <div>
-                <%= f.label :password, 'Password' %>:
-                <%= f.password_field :password, size: 40 %>
-            </div>
-            <div>
-                <%= f.label :password_confirmation, 'Confirm' %>:
-                <%= f.password_field :password_confirmation, size: 40 %>
-            </div>
-            <% if User.find(session[:user_id]).has_role?("9000")%>
-            <div>
-                <%= check_box_tag "user[roles][]", "9000", @user.has_role?("9000")%>
-                <%= label_tag "user[roles][]", "Administrator"%>
-                <%= check_box_tag "user[roles][]", "6000", @user.has_role?("6000")%>
-                <%= label_tag "user[roles][]", "Agent"%>
-            </div>
-            <div>
-                <div>Access to Users</div>
-                <%= check_box_tag "user[roles][]", "1001", @user.has_role?("1001")%>
-                <%= label_tag "user[roles][]", "Can see list of users"%>
-                <%= check_box_tag "user[roles][]", "1002", @user.has_role?("1002")%>
-                <%= label_tag "user[roles][]", "Can add users"%>
-                <%= check_box_tag "user[roles][]", "1003", @user.has_role?("1003")%>
-                <%= label_tag "user[roles][]", "Can delete users"%>
-                <%= check_box_tag "user[roles][]", "1004", @user.has_role?("1004")%>
-                <%= label_tag "user[roles][]", "Can modify users"%>
-                <div>Access to Subscribers</div>
-                <%= check_box_tag "user[roles][]", "2001", @user.has_role?("2001")%>
-                <%= label_tag "user[roles][]", "Can see list of subscribers"%>
-                <%= check_box_tag "user[roles][]", "2002", @user.has_role?("2002")%>
-                <%= label_tag "user[roles][]", "Can add subscribers"%>
-                <%= check_box_tag "user[roles][]", "2003", @user.has_role?("2003")%>
-                <%= label_tag "user[roles][]", "Can delete subscribers"%>
-                <%= check_box_tag "user[roles][]", "2004", @user.has_role?("2004")%>
-                <%= label_tag "user[roles][]", "Can modify subscribers"%>
-                <div>Access to Payments</div>
-                <%= check_box_tag "user[roles][]", "3001", @user.has_role?("3001")%>
-                <%= label_tag "user[roles][]", "Can see list payments"%>
-                <%= check_box_tag "user[roles][]", "3002", @user.has_role?("3002")%>
-                <%= label_tag "user[roles][]", "Can add payments"%>
-                <%= check_box_tag "user[roles][]", "3003", @user.has_role?("3003")%>
-                <%= label_tag "user[roles][]", "Can delete payments"%>
-                <%= check_box_tag "user[roles][]", "3004", @user.has_role?("3004")%>
-                <%= label_tag "user[roles][]", "Can modify payments"%>
-                <div>Access to Agents</div>
-                <%= check_box_tag "user[roles][]", "4001", @user.has_role?("4001")%>
-                <%= label_tag "user[roles][]", "Can see list of agents"%>
-                <%= check_box_tag "user[roles][]", "4002", @user.has_role?("4002")%>
-                <%= label_tag "user[roles][]", "Can add agents"%>
-                <%= check_box_tag "user[roles][]", "4003", @user.has_role?("4003")%>
-                <%= label_tag "user[roles][]", "Can delete agents"%>
-                <%= check_box_tag "user[roles][]", "4004", @user.has_role?("4004")%>
-                <%= label_tag "user[roles][]", "Can modify agents"%>    
-            </div>
-            <%end%>
-            <div>
-                <%= f.submit %>
-            </div>
-        </fieldset>
+	    <%= form_for(@user) do |f| %>
+	      <% if @user.errors.any? %>
+	        <div id="error_explanation">
+	          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+	    
+	          <ul>
+	          <% @user.errors.full_messages.each do |msg| %>
+	            <li><%= msg %></li>
+	          <% end %>
+	          </ul>
+	        </div>
+		<% end %>
+		<div>
+		    <%= f.label :name %>:
+		    <%= f.text_field :name, size: 40 %>
+		</div>
+		<div>
+		    <%= f.label :password, 'Password' %>:
+		    <%= f.password_field :password, size: 40 %>
+		</div>
+		<div>
+		    <%= f.label :password_confirmation, 'Confirm' %>:
+		    <%= f.password_field :password_confirmation, size: 40 %>
+		</div>
+		<% if User.find(session[:user_id]).has_role?("9000")%>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Roles</legend>
+				    <%= check_box_tag "user[roles][]", "9000", @user.has_role?("9000")%>
+			        <%= label_tag "user[roles][]", "Administrator"%><br>
+			        <%= check_box_tag "user[roles][]", "6000", @user.has_role?("6000")%>
+			        <%= label_tag "user[roles][]", "Agent"%><br>
+			    </fieldset>
+			</div>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Users</legend>
+		                <%= check_box_tag "user[roles][]", "1001", @user.has_role?("1001")%>
+		                <%= label_tag "user[roles][]", "Can see list of users"%><br>
+		                <%= check_box_tag "user[roles][]", "1002", @user.has_role?("1002")%>
+		                <%= label_tag "user[roles][]", "Can add users"%><br>
+		                <%= check_box_tag "user[roles][]", "1003", @user.has_role?("1003")%>
+		                <%= label_tag "user[roles][]", "Can delete users"%><br>
+		                <%= check_box_tag "user[roles][]", "1004", @user.has_role?("1004")%>
+		                <%= label_tag "user[roles][]", "Can modify users"%><br>
+		        </fieldset>
+			</div>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Subscribers</legend>
+		            <%= check_box_tag "user[roles][]", "2001", @user.has_role?("2001")%>
+		            <%= label_tag "user[roles][]", "Can see list of subscribers"%><br>
+		            <%= check_box_tag "user[roles][]", "2002", @user.has_role?("2002")%>
+		            <%= label_tag "user[roles][]", "Can add subscribers"%><br>
+		            <%= check_box_tag "user[roles][]", "2003", @user.has_role?("2003")%>
+		            <%= label_tag "user[roles][]", "Can delete subscribers"%><br>
+		            <%= check_box_tag "user[roles][]", "2004", @user.has_role?("2004")%>
+		            <%= label_tag "user[roles][]", "Can modify subscribers"%><br>
+		        </fieldset>
+			</div>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Payments</legend>
+		            <%= check_box_tag "user[roles][]", "3001", @user.has_role?("3001")%>
+		            <%= label_tag "user[roles][]", "Can see list payments"%><br>
+		            <%= check_box_tag "user[roles][]", "3002", @user.has_role?("3002")%>
+		            <%= label_tag "user[roles][]", "Can add payments"%><br>
+		            <%= check_box_tag "user[roles][]", "3003", @user.has_role?("3003")%>
+		            <%= label_tag "user[roles][]", "Can delete payments"%><br>
+		            <%= check_box_tag "user[roles][]", "3004", @user.has_role?("3004")%>
+		            <%= label_tag "user[roles][]", "Can modify payments"%><br>
+		        </fieldset>
+			</div>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Agents</legend>
+		            <%= check_box_tag "user[roles][]", "4001", @user.has_role?("4001")%>
+		            <%= label_tag "user[roles][]", "Can see list of agents"%><br>
+		            <%= check_box_tag "user[roles][]", "4002", @user.has_role?("4002")%>
+		            <%= label_tag "user[roles][]", "Can add agents"%><br>
+		            <%= check_box_tag "user[roles][]", "4003", @user.has_role?("4003")%>
+		            <%= label_tag "user[roles][]", "Can delete agents"%><br>
+		            <%= check_box_tag "user[roles][]", "4004", @user.has_role?("4004")%>
+		            <%= label_tag "user[roles][]", "Can modify agents"%><br>
+		        </fieldset>
+			</div>
+		<%end%>
+		<%= f.submit %>
     <% end %>
 </div>

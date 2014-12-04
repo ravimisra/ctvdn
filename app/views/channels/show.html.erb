@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% unless notice.blank?%>
+	<p id="notice"><%= notice %></p> 
+<% end %>
 
 <p>
   <b>Name:</b>
@@ -11,5 +13,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_channel_path(@channel) %> |
-<%= link_to 'Back', channels_path %>
+<%= link_to 'Edit', edit_channel_path(@channel), class: 'action edit' %> |
+<%= link_to 'List all channels', channels_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || channels_path, class: 'action back' %>

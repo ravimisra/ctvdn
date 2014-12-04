@@ -4,22 +4,21 @@
   <tr class="header">
     <th>Name</th>
     <th>Price</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3">Tasks</th>
   </tr>
 
-<% @channels.each do |channel| %>
-  <tr>
+<% @channels.each_with_index do |channel,i| %>
+  <tr class="<%= i%2 == 0 ? '':'alternate'%>">
     <td><%= channel.name %></td>
     <td><%= channel.price %></td>
-    <td><%= link_to 'Show', channel %></td>
-    <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
-    <td><%= link_to 'Destroy', channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/eye-128.png'), alt: 'View'), channel, class: 'icon', title: 'view') %></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/pen-128.png'), alt: 'Edit'), edit_channel_path(channel), {class: 'icon', title: 'edit'}) if current_user && current_user.has_role?(User::CHANNELS + User::CAN_EDIT)%></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/trash-128.png'), alt: 'Delete'), channel, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon', title:  'delete') if current_user && current_user.has_role?(User::CHANNELS + User::CAN_DESTROY)%></td>
+    
   </tr>
 <% end %>
 </table>
-
+<%= will_paginate @packages %>
 <br />
 
-<%= link_to 'New Channel', new_channel_path %>
+<%= link_to 'Add new channel', new_channel_path, class: 'action add-new' %>

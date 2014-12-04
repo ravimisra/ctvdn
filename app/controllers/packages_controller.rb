@@ -2,7 +2,7 @@ class PackagesController < ApplicationController
   # GET /packages
   # GET /packages.json
   def index
-    @packages = Package.all
+    @packages = Package.paginate(:page  => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb

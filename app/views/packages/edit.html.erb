@@ -1,6 +1,7 @@
-<h1>Editing package</h1>
+<h1>Editing package: <%=@package.name%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @package %> |
-<%= link_to 'Back', packages_path %>
+<%= link_to 'Show', @package, class: 'action show' %> |
+<%= link_to 'List all package', packages_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || packages_path, class: 'action back' %>

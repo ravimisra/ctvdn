@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% unless notice.blank?%>
+	<p id="notice"><%= notice %></p> 
+<% end %>
 
 <p>
   <b>Payment id:</b>
@@ -38,5 +40,6 @@
 </p>
 
 
-<%= link_to 'Edit', edit_payment_path(@payment) %> |
-<%= link_to 'Back', payments_path %>
+<%= link_to 'Edit', edit_payment_path(@payment), class: 'action edit' %> |
+<%= link_to 'List all payments', payments_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || payments_path, class: 'action back' %>

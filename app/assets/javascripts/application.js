@@ -42,5 +42,5 @@ function adjustLabelWidth() {
 			max = width;
 		}
 	});
-	$(labels).outerWidth(max);
+	$(labels).outerWidth(max + 10);
 }

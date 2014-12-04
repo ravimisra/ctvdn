@@ -44,20 +44,6 @@ html{
         padding: 1em;
         background: white;
         height:100%;
-        table{
-          width:100%;
-          border-spacing:0px;
-          border-collapse:collapse;
-          tr.header{
-            background-color:#777;
-          }
-          tr.alternate{
-            background-color:#aaa;
-          }
-          th{
-            border:#000 1px solid;
-          }
-        }
       }
       #side {
         float: left;
@@ -88,11 +74,28 @@ html{
       }
     }
     table{
+      width:100%;
+      border-spacing:0px;
+      border-collapse:collapse;
       th{
         color:#fff;
+        border:#000 1px solid;
       }
-      td{
-        border:1px solid;
+      tr{
+        &.header{
+          background-color:#777;
+        }
+        &.alternate{
+          background-color:#aaa;
+        }
+        td{
+          border:1px solid;
+          vertical-align:middle;
+          text-align:center;
+          &.action{
+            width:24px;
+          }
+        }
       }
     }
     form {
@@ -118,6 +121,65 @@ html{
     .clear{
       clear:both;
       float:none;
+    }
+    a{
+      &.icon{
+        max-width:16px;
+        max-height:16px;
+        line-height:16px;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        background-color:transparent;
+        img{
+          height: 16px;
+          width:16px;
+          opacity:1;
+        }
+        &:hover{
+          img{
+            opacity:0.6;
+          }
+        }
+      }
+      &.action{
+        padding-left: 18px;
+        color:#000;
+        text-decoration:none;
+        background: {
+          size: 16px;
+          repeat: no-repeat;
+        }
+        &:hover{
+          background-color:#fff;
+          font-style:italic;
+        }
+        &.add-new{
+          background: {
+            image: image-url("ui-icons/document_add-128.png");
+          }
+        }
+        &.back{
+          background: {
+            image: image-url("ui-icons/arrowleft-128.png");
+          }
+        }
+        &.edit{
+          background: {
+            image: image-url("ui-icons/pen-128.png");
+          }
+        }
+        &.list{
+          background: {
+            image: image-url("ui-icons/list-128.png");
+          }
+        }
+        &.show{
+          background: {
+            image: image-url("ui-icons/eye-128.png");
+          }
+        }
+      }
     }
   }
 }

@@ -19,6 +19,7 @@ Ctvdn::Application.routes.draw do
     resources :payments
     collection do
       get 'inactive'
+      get 'active'
     end
   end
   

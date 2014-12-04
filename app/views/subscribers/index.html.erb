@@ -1,35 +1,37 @@
-<h1>Listing subscribers</h1>
+<h1>Listing <%= @list_name %> subscribers</h1>
 
 <table>
   <tr class="header">
     <th>Status</th>
+    <th>Subscriber Id</th>
     <th>Smartcard number</th>
     <th>Name</th>
     <th>Address</th>
-    <th>Cycle starts on</th>
-    <th>Packages</th>
-    <th>Channels</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Cycle starts on (day)</th>
+    <th>Package(s)</th>
+    <th>À la carte Channel(s)</th>
+    <th colspan="5">Tasks</th>
   </tr>
 
 <% @subscribers.each_with_index do |subscriber, i| %>
-  <tr >
+  <tr class="<%= i%2 == 0 ? '':'alternate'%>">
     <td><%= subscriber.status ? 'Active' : 'Inactive' %></td>
+    <td><%= subscriber.id %></td>
     <td><%= subscriber.smartcard_number %></td>
     <td><%= subscriber.name %></td>
     <td><%= subscriber.address %></td>
     <td><%= subscriber.cycle_starts_on %></td>
     <td><%= subscriber.get_packages.collect(&:name).join(',') %></td>
     <td><%= subscriber.get_channels.collect(&:name).join(',') %></td>
-    <td><%= link_to 'Show', subscriber %></td>
-    <td><%= link_to( 'Edit', edit_subscriber_path(subscriber)) if current_user && current_user.has_role?(User::USERS + User::CAN_DESTROY)%></td>
-    <td><%= link_to( 'Destroy', subscriber, method: :delete, data: { confirm: 'Are you sure?' }) if current_user && current_user.has_role?(User::USERS + User::CAN_DESTROY)%></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/eye-128.png'), alt: 'View'), subscriber, class: 'icon', title: 'view') %></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/pen-128.png'), alt: 'Edit'), edit_subscriber_path(subscriber), {class: 'icon', title: 'edit'}) if current_user && current_user.has_role?(User::SUBSCRIBERS + User::CAN_EDIT)%></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/trash-128.png'), alt: 'Delete'), subscriber, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon', title:  'delete') if current_user && current_user.has_role?(User::SUBSCRIBERS + User::CAN_DESTROY)%></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/list-128.png'), alt: 'View all payments'), subscriber_payments_path(subscriber), class: 'icon', title: 'view all payments for this subscriber') %></td>
+    <td class='action'><%= link_to( image_tag(asset_path('ui-icons/plus-128.png'), alt: 'Add new payment for this subscriber'), new_subscriber_payment_path(subscriber), class: 'icon', title: 'add new payment for this subscriber') %></td>
   </tr>
 <% end %>
 </table>
 <%= will_paginate @subscribers %>
 <br />
 
-<%= link_to 'New Subscriber', new_subscriber_path %>
+<%= link_to 'Add new subscriber', new_subscriber_path, class: 'action add-new' %>

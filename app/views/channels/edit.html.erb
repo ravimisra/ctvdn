@@ -1,6 +1,7 @@
-<h1>Editing channel</h1>
+<h1>Editing channel: <%=@channel.name%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @channel %> |
-<%= link_to 'Back', channels_path %>
+<%= link_to 'Show', @channel, class: 'action show' %> |
+<%= link_to 'List all channels', channels_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || channels_path, class: 'action back' %>

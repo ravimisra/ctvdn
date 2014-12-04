@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% unless notice.blank?%>
+	<p id="notice"><%= notice %></p> 
+<% end %>
 
 <p>
   <b>Name:</b>
@@ -15,6 +17,6 @@
   <%= @package.price %>
 </p>
 
-
-<%= link_to 'Edit', edit_package_path(@package) %> |
-<%= link_to 'Back', packages_path %>
+<%= link_to 'Edit', edit_package_path(@package), class: 'action edit' %> |
+<%= link_to 'List all package', packages_path, class: 'action list' %> |
+<%= link_to 'Back', request.referer || packages_path, class: 'action back' %>
