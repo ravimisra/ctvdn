@@ -34,10 +34,10 @@ class ApplicationController < ActionController::Base
       else
         allowed = true
       end
-      
+      allowed = true if params[:controller] == "admin"
       allowed = true if user.has_role?(User::IS_AN_ADMIN)
       unless allowed
-        redirect_to action: :show, id: user.id, flash: {alert: "you are not allowed to access this page"}
+        redirect_to controller: :users, action: :show, id: user.id, flash: {alert: "you are not allowed to access this page"}
         return
       end
     end

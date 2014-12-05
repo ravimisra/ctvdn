@@ -7,12 +7,85 @@
   <%= @user.name %>
 </p>
 
-<p>
-  <b>Password digest:</b>
-  <%#= @user.password_digest %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user), class: 'action edit' %> |
-<%= link_to 'List all users', users_path, class: 'action list' %> |
-<%= link_to 'Back', request.referer || users_path, class: 'action back' %>
+<table class="wrapper">
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Roles</legend>
+				    <label>Administrator: </label><%= @user.has_role?(User::IS_AN_ADMIN) ? 'Yes' : 'No'%><br>
+				    <label>Agent: </label><%= @user.has_role?(User::IS_AN_AGENT) ? 'Yes' : 'No'%><br>
+			    </fieldset>
+			</div>
+		</td>
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Users</legend>
+				    <label>Can see list of users: </label><%= @user.has_role?(User::USERS + User::CAN_LIST) ? 'Yes' : 'No'%><br>
+				    <label>Can add users: </label><%= @user.has_role?(User::USERS + User::CAN_ADD) ? 'Yes' : 'No'%><br>
+				    <label>Can delete users: </label><%= @user.has_role?(User::USERS + User::CAN_DESTROY) ? 'Yes' : 'No'%><br>
+				    <label>Can modify users: </label><%= @user.has_role?(User::USERS + User::CAN_EDIT) ? 'Yes' : 'No'%><br>
+		        </fieldset>
+			</div>
+		</td>
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Subscribers</legend>
+				    <label>Can see list of subscribers: </label><%= @user.has_role?(User::SUBSCRIBERS + User::CAN_LIST) ? 'Yes' : 'No'%><br>
+				    <label>Can add subscribers: </label><%= @user.has_role?(User::SUBSCRIBERS + User::CAN_ADD) ? 'Yes' : 'No'%><br>
+				    <label>Can delete subscribers: </label><%= @user.has_role?(User::SUBSCRIBERS + User::CAN_DESTROY) ? 'Yes' : 'No'%><br>
+				    <label>Can modify subscribers: </label><%= @user.has_role?(User::SUBSCRIBERS + User::CAN_EDIT) ? 'Yes' : 'No'%><br>
+		        </fieldset>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Payments</legend>
+				    <label>Can see list of payments: </label><%= @user.has_role?(User::PAYMENTS + User::CAN_LIST) ? 'Yes' : 'No'%><br>
+				    <label>Can add payments: </label><%= @user.has_role?(User::PAYMENTS + User::CAN_ADD) ? 'Yes' : 'No'%><br>
+				    <label>Can delete payments: </label><%= @user.has_role?(User::PAYMENTS + User::CAN_DESTROY) ? 'Yes' : 'No'%><br>
+				    <label>Can modify payments: </label><%= @user.has_role?(User::PAYMENTS + User::CAN_EDIT) ? 'Yes' : 'No'%><br>
+		        </fieldset>
+			</div>
+		</td>				
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Packages</legend>
+				    <label>Can see list of packages: </label><%= @user.has_role?(User::PACKAGES + User::CAN_LIST) ? 'Yes' : 'No'%><br>
+				    <label>Can add packages: </label><%= @user.has_role?(User::PACKAGES + User::CAN_ADD) ? 'Yes' : 'No'%><br>
+				    <label>Can delete packages: </label><%= @user.has_role?(User::PACKAGES + User::CAN_DESTROY) ? 'Yes' : 'No'%><br>
+				    <label>Can modify packages: </label><%= @user.has_role?(User::PACKAGES + User::CAN_EDIT) ? 'Yes' : 'No'%><br>
+		        </fieldset>
+			</div>
+		</td>
+		<td>
+			<div class="field vertical-group">
+			    <fieldset>
+				    <legend>Access to Channels</legend>
+				    <label>Can see list of channels: </label><%= @user.has_role?(User::CHANNELS + User::CAN_LIST) ? 'Yes' : 'No'%><br>
+				    <label>Can add channels: </label><%= @user.has_role?(User::CHANNELS + User::CAN_ADD) ? 'Yes' : 'No'%><br>
+				    <label>Can delete channels: </label><%= @user.has_role?(User::CHANNELS + User::CAN_DESTROY) ? 'Yes' : 'No'%><br>
+				    <label>Can modify channels: </label><%= @user.has_role?(User::CHANNELS + User::CAN_EDIT) ? 'Yes' : 'No'%><br>
+		        </fieldset>
+			</div>
+		</td>
+		<td>
+			
+		</td>				
+	</tr>
+</table>
+<div class="nav">
+	<%= link_to 'Edit', edit_user_path(@user), class: 'action edit' %> |
+	<%= link_to 'List all users', users_path, class: 'action list' %> |
+	<%= link_to 'Back', request.referer || users_path, class: 'action back' %>
+</div>

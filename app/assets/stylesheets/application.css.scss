@@ -97,6 +97,19 @@ html{
           }
         }
       }
+      &.wrapper{
+        width:auto;
+        border:none;
+        tr{
+          td{
+            border:0px;
+            text-align: left;
+            label{
+              display:inline-block;
+            }
+          }
+        }
+      }
     }
     form {
       .vertical-group{
@@ -121,6 +134,15 @@ html{
     .clear{
       clear:both;
       float:none;
+    }
+    .nav{
+      margin: 10px 0px;
+    }
+    .fl{
+      float:left;
+    }
+    .fr{
+      float:right;
     }
     a{
       &.icon{

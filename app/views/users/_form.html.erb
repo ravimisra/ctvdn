@@ -24,67 +24,98 @@
 		    <%= f.password_field :password_confirmation, size: 40 %>
 		</div>
 		<% if User.find(session[:user_id]).has_role?("9000")%>
-			<div class="field vertical-group">
-			    <fieldset>
-				    <legend>Roles</legend>
-				    <%= check_box_tag "user[roles][]", "9000", @user.has_role?("9000")%>
-			        <%= label_tag "user[roles][]", "Administrator"%><br>
-			        <%= check_box_tag "user[roles][]", "6000", @user.has_role?("6000")%>
-			        <%= label_tag "user[roles][]", "Agent"%><br>
-			    </fieldset>
-			</div>
-			<div class="field vertical-group">
-			    <fieldset>
-				    <legend>Access to Users</legend>
-		                <%= check_box_tag "user[roles][]", "1001", @user.has_role?("1001")%>
-		                <%= label_tag "user[roles][]", "Can see list of users"%><br>
-		                <%= check_box_tag "user[roles][]", "1002", @user.has_role?("1002")%>
-		                <%= label_tag "user[roles][]", "Can add users"%><br>
-		                <%= check_box_tag "user[roles][]", "1003", @user.has_role?("1003")%>
-		                <%= label_tag "user[roles][]", "Can delete users"%><br>
-		                <%= check_box_tag "user[roles][]", "1004", @user.has_role?("1004")%>
-		                <%= label_tag "user[roles][]", "Can modify users"%><br>
-		        </fieldset>
-			</div>
-			<div class="field vertical-group">
-			    <fieldset>
-				    <legend>Access to Subscribers</legend>
-		            <%= check_box_tag "user[roles][]", "2001", @user.has_role?("2001")%>
-		            <%= label_tag "user[roles][]", "Can see list of subscribers"%><br>
-		            <%= check_box_tag "user[roles][]", "2002", @user.has_role?("2002")%>
-		            <%= label_tag "user[roles][]", "Can add subscribers"%><br>
-		            <%= check_box_tag "user[roles][]", "2003", @user.has_role?("2003")%>
-		            <%= label_tag "user[roles][]", "Can delete subscribers"%><br>
-		            <%= check_box_tag "user[roles][]", "2004", @user.has_role?("2004")%>
-		            <%= label_tag "user[roles][]", "Can modify subscribers"%><br>
-		        </fieldset>
-			</div>
-			<div class="field vertical-group">
-			    <fieldset>
-				    <legend>Access to Payments</legend>
-		            <%= check_box_tag "user[roles][]", "3001", @user.has_role?("3001")%>
-		            <%= label_tag "user[roles][]", "Can see list payments"%><br>
-		            <%= check_box_tag "user[roles][]", "3002", @user.has_role?("3002")%>
-		            <%= label_tag "user[roles][]", "Can add payments"%><br>
-		            <%= check_box_tag "user[roles][]", "3003", @user.has_role?("3003")%>
-		            <%= label_tag "user[roles][]", "Can delete payments"%><br>
-		            <%= check_box_tag "user[roles][]", "3004", @user.has_role?("3004")%>
-		            <%= label_tag "user[roles][]", "Can modify payments"%><br>
-		        </fieldset>
-			</div>
-			<div class="field vertical-group">
-			    <fieldset>
-				    <legend>Access to Agents</legend>
-		            <%= check_box_tag "user[roles][]", "4001", @user.has_role?("4001")%>
-		            <%= label_tag "user[roles][]", "Can see list of agents"%><br>
-		            <%= check_box_tag "user[roles][]", "4002", @user.has_role?("4002")%>
-		            <%= label_tag "user[roles][]", "Can add agents"%><br>
-		            <%= check_box_tag "user[roles][]", "4003", @user.has_role?("4003")%>
-		            <%= label_tag "user[roles][]", "Can delete agents"%><br>
-		            <%= check_box_tag "user[roles][]", "4004", @user.has_role?("4004")%>
-		            <%= label_tag "user[roles][]", "Can modify agents"%><br>
-		        </fieldset>
-			</div>
+			<table class="wrapper">
+				<tr>
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Roles</legend>
+							    <%= check_box_tag "user[roles][]", User::IS_AN_ADMIN, @user.has_role?(User::IS_AN_ADMIN)%>
+						        <%= label_tag "user[roles][]", "Administrator"%><br>
+						        <%= check_box_tag "user[roles][]", User::IS_AN_AGENT, @user.has_role?(User::IS_AN_AGENT)%>
+						        <%= label_tag "user[roles][]", "Agent"%><br>
+						    </fieldset>
+						</div>
+					</td>
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Access to Users</legend>
+					                <%= check_box_tag "user[roles][]", User::USERS + User::CAN_LIST, @user.has_role?(User::USERS + User::CAN_LIST)%>
+					                <%= label_tag "user[roles][]", "Can see list of users"%><br>
+					                <%= check_box_tag "user[roles][]", User::USERS + User::CAN_ADD, @user.has_role?(User::USERS + User::CAN_ADD)%>
+					                <%= label_tag "user[roles][]", "Can add users"%><br>
+					                <%= check_box_tag "user[roles][]", User::USERS + User::CAN_DESTROY, @user.has_role?(User::USERS + User::CAN_DESTROY)%>
+					                <%= label_tag "user[roles][]", "Can delete users"%><br>
+					                <%= check_box_tag "user[roles][]", User::USERS + User::CAN_EDIT, @user.has_role?(User::USERS + User::CAN_EDIT)%>
+					                <%= label_tag "user[roles][]", "Can modify users"%><br>
+					        </fieldset>
+						</div>
+					</td>
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Access to Subscribers</legend>
+					            <%= check_box_tag "user[roles][]", User::SUBSCRIBERS + User::CAN_LIST, @user.has_role?(User::SUBSCRIBERS + User::CAN_LIST)%>
+					            <%= label_tag "user[roles][]", "Can see list of subscribers"%><br>
+					            <%= check_box_tag "user[roles][]", User::SUBSCRIBERS + User::CAN_ADD, @user.has_role?(User::SUBSCRIBERS + User::CAN_ADD)%>
+					            <%= label_tag "user[roles][]", "Can add subscribers"%><br>
+					            <%= check_box_tag "user[roles][]", User::SUBSCRIBERS + User::CAN_DESTROY, @user.has_role?(User::SUBSCRIBERS + User::CAN_DESTROY)%>
+					            <%= label_tag "user[roles][]", "Can delete subscribers"%><br>
+					            <%= check_box_tag "user[roles][]", User::SUBSCRIBERS + User::CAN_EDIT, @user.has_role?(User::SUBSCRIBERS + User::CAN_EDIT)%>
+					            <%= label_tag "user[roles][]", "Can modify subscribers"%><br>
+					        </fieldset>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Access to Payments</legend>
+					            <%= check_box_tag "user[roles][]", User::PAYMENTS + User::CAN_LIST, @user.has_role?(User::PAYMENTS + User::CAN_LIST)%>
+					            <%= label_tag "user[roles][]", "Can see list payments"%><br>
+					            <%= check_box_tag "user[roles][]", User::PAYMENTS + User::CAN_ADD, @user.has_role?(User::PAYMENTS + User::CAN_ADD)%>
+					            <%= label_tag "user[roles][]", "Can add payments"%><br>
+					            <%= check_box_tag "user[roles][]", User::PAYMENTS + User::CAN_DESTROY, @user.has_role?(User::PAYMENTS + User::CAN_DESTROY)%>
+					            <%= label_tag "user[roles][]", "Can delete payments"%><br>
+					            <%= check_box_tag "user[roles][]", User::PAYMENTS + User::CAN_EDIT, @user.has_role?(User::PAYMENTS + User::CAN_EDIT)%>
+					            <%= label_tag "user[roles][]", "Can modify payments"%><br>
+					        </fieldset>
+						</div>
+					</td>				
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Access to Packages</legend>
+					            <%= check_box_tag "user[roles][]", User::PACKAGES + User::CAN_LIST, @user.has_role?(User::PACKAGES + User::CAN_LIST)%>
+					            <%= label_tag "user[roles][]", "Can see list of packages"%><br>
+					            <%= check_box_tag "user[roles][]", User::PACKAGES + User::CAN_ADD, @user.has_role?(User::PACKAGES + User::CAN_ADD)%>
+					            <%= label_tag "user[roles][]", "Can add packages"%><br>
+					            <%= check_box_tag "user[roles][]", User::PACKAGES + User::CAN_DESTROY, @user.has_role?(User::PACKAGES + User::CAN_DESTROY)%>
+					            <%= label_tag "user[roles][]", "Can delete packages"%><br>
+					            <%= check_box_tag "user[roles][]", User::PACKAGES + User::CAN_EDIT, @user.has_role?(User::PACKAGES + User::CAN_EDIT)%>
+					            <%= label_tag "user[roles][]", "Can modify packages"%><br>
+					        </fieldset>
+						</div>
+					</td>
+					<td>
+						<div class="field vertical-group">
+						    <fieldset>
+							    <legend>Access to Channels</legend>
+					            <%= check_box_tag "user[roles][]", User::CHANNELS + User::CAN_LIST, @user.has_role?(User::CHANNELS + User::CAN_LIST)%>
+					            <%= label_tag "user[roles][]", "Can see list of channels"%><br>
+					            <%= check_box_tag "user[roles][]", User::CHANNELS + User::CAN_ADD, @user.has_role?(User::CHANNELS + User::CAN_ADD)%>
+					            <%= label_tag "user[roles][]", "Can add channels"%><br>
+					            <%= check_box_tag "user[roles][]", User::CHANNELS + User::CAN_DESTROY, @user.has_role?(User::CHANNELS + User::CAN_DESTROY)%>
+					            <%= label_tag "user[roles][]", "Can delete channels"%><br>
+					            <%= check_box_tag "user[roles][]", User::CHANNELS + User::CAN_EDIT, @user.has_role?(User::CHANNELS + User::CAN_EDIT)%>
+					            <%= label_tag "user[roles][]", "Can modify channels"%><br>
+					        </fieldset>
+						</div>
+					</td>
+				</tr>
+			</table>
 		<%end%>
 		<%= f.submit %>
     <% end %>
