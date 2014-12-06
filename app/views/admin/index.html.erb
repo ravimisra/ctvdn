@@ -24,8 +24,8 @@
     <td><%= subscriber.smartcard_number %></td>
     <td><%= subscriber.name %></td>
     <td><%= subscriber.cycle_starts_on %></td>
-    <td><%= payment.collected_on %></td>
-    <td><%= payment.amount %></td>
+    <td><%= payment.collected_on if payment %></td>
+    <td><%= payment.amount if payment %></td>
     <td class='action'><%= link_to( image_tag(asset_path('ui-icons/eye-128.png'), alt: 'View this subscriber'), subscriber, class: 'icon', title: 'view this subscriber') %></td>
     <td class='action'><%= link_to( image_tag(asset_path('ui-icons/pen-128.png'), alt: 'Edit this subscriber'), edit_subscriber_path(subscriber), {class: 'icon', title: 'edit this subscriber'}) if current_user && current_user.has_role?(User::SUBSCRIBERS + User::CAN_EDIT)%></td>
     <td class='action'><%= link_to( image_tag(asset_path('ui-icons/trash-128.png'), alt: 'Delete this subscriber'), subscriber, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon', title:  'delete this subscriber') if current_user && current_user.has_role?(User::SUBSCRIBERS + User::CAN_DESTROY)%></td>
